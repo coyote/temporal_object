@@ -1,0 +1,41 @@
+BELOW, all forms of "to be" are equivalent for representational purposes.
+Will a list of cannonical traits for places, persons, animals, artifacts [and typs of artifcts], for conflits, themes, etc.
+  e.g., persons:  vitality, [any of physical traits], social class, legal status [e.g., minor, adult, military, clergy, prisoner, noble, serf, legislator]
+
+Traits can be additive or displacive.  Reaching the age of majority, a child is now an adult, and loses the 'minor' tag for 'adult'.
+
+But if Tom falls in love with Luis, he doesn't stop loving Alice automatically.   When Tom is elected to parliment he is still a citizen.
+
+Many traits can happen at the same time.  E.g, a village is bombed, and many die.  The 'vitality=dead' will have the same time stamp for many characters.  Code must be able to handle multiple simultaneous traits, returning not just 'before' or 'after' but also 'equal' in time.
+
+Traits could be a Ruby array.  In the case of displacive traits, there must be a link to the previous trait to show its displacement.  
+However, a replacement value trait won't negate the additive prededecessor.  (So when Tom is impeached from Parliment he is still a citizen.
+
+
+01. Tom was elected to Parliment on July 3, 2035
+02. Carol was born on April 9, 1722
+03. Erik was wounded in battle, Nov 12, 985 CE at 17.30h.
+04. Sam will enroll as a freshman in the University of California, Santa Cruz, on May 9, 2045.
+05. Tom was impeached from Parliment, Nov 8, 2040.   (should be on same object and trait as #01)
+06. Carol gave birth to John on Sep 11, 1745. (same object as #02)
+07. John became a cobbler in October, 1762. (same as target object in #06)
+08. On a cool fall afternoon, Siva feel in love with his boyfriend Roger.
+09. Horace was mugged in the night.
+
+self
+time-stamp
+trait
+new value 
+
+01
+self: Tom
+time-stamp: July 3, 2035
+trait: legal status
+new value: MP
+
+02: 
+self: Carol
+time-stmap: April 9, 1722
+trait: vitality
+value: born
+
