@@ -2,10 +2,61 @@
 
 module TemporalObject
 
-  require 'date'
+  require 'date'                      # to be deprecated
 
-  # write specs for this
+  class TemporalStatusItem           # detail record
+
+    def initialize( status )
+    end
+
+    def status_entry
+    end
+
+    # no replace/edit functionality, remve from TemporalStatusList, and reinsert
+
+  end
+
+  class TemporalStatusHistory     # a list of TemporalStatusEntries
+
+    def initialize( name )
+    end
+
+  end
+
+  class TemporalStatusGroup        # a hash where key is category, values are
+
+     def initialize( name )
+     end
+
+
+
+  end
+
+  class TemporalObject
+
+    def initialize *params
+      super &params
+      @statuses = {}
+    end
+
+    def statuses
+      @statuses
+    end
+
+    def status status_type
+      @statuses['status_type']
+    end
+
+    ## without the last param, will add on a status, marking as multiple simultaneous statuses
+    def add_temporal_status(name, time_point, status, replaces=nil)
+
+    end
+
+  end
+
+  #write specs for this
   class TimeSpanRelation
+
 
     # for RrelativeTimeSpan objects a,b:
 
@@ -17,8 +68,6 @@ module TemporalObject
 
     #  a starting with but ending before b
     #  a starting with but ending after b
-
-    #  a == b
 
     #  a starting after but ending before b
     #  a starting after but ending with b
@@ -35,59 +84,6 @@ module TemporalObject
 
 
   end
-
-
-  class RelativeTimeSpan
-
-    attr_accessor :starting, :ending     # RelativeTime objects
-
-
-    def starting_before?(b)   #+1
-      starting < b.starting
-    end
-
-    def starting_after?(b)     #-2
-      starting > b.starting
-    end
-
-    def starting_with?(b)      #-3
-      starting == b.starting
-    end
-
-    def ending_before?(b)      #-5
-      ending < b.ending
-    end
-
-    def ending_after?(b)     #-6
-      ending > b.ending
-    end
-
-    def ending_with?(b)        #+4
-      ending == b.ending
-    end
-
-    def ending_before_other_starting?(b)    #-7
-      ending < b.starting
-    end
-
-    def ending_as_other_starting?(b)       #-8
-      ending == b.starting
-    end
-
-    def starting_after_other_ending?(b)     #-9
-      starting > b.ending
-    end
-
-    def starting_as_other_ending?(b)       #-10
-      starting == b.ending
-    end
-
-  end
-
-  # first implementation is just as DateTime; later add fuzzy  time
-  class RelativeTime  < DateTime
-  end
-
 
 
 end

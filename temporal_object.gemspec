@@ -10,15 +10,19 @@ Gem::Specification.new do |s|
   s.homepage    = ""
   s.summary     = %q{Temporal Object Design Pattern}
   s.description = %q{Martin Fowler's Temporal Object Pattern.}
+  s.license     = 'MIT'
+  s.dependency  = ['relative_time']
+
 
   s.rubyforge_project = "temporal_object"
 
   s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.test_files    = `git ls-files -- {spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
   s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
+  s.add_development_dependency "time_span"
+  s.add_runtime_dependency "time_span"
 end

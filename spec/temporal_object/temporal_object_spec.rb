@@ -1,81 +1,68 @@
   require File.expand_path(File.dirname(__FILE__) + '../../spec_helper')
 
+  #  custom matchers:  http://rubydoc.info/gems/rspec-expectations/2.1.0/RSpec/Matchers
+  #    or  http://railscasts.com/episodes/157-rspec-matchers-macros?view=asciicast
+
   describe "TemporalObject"  do
 
-    context "RelativeTimeSpan" do
+    describe "Temporal Object" do
 
-      before (:each) do
-        @alpha = TemporalObject::RelativeTimeSpan.new
-        @alpha.starting  = TemporalObject::RelativeTime.now - 1000
-        @alpha.ending = TemporalObject::RelativeTime.now
+
+      let (:temporal_object) do
+        TemporalObject::TemporalObject.new
       end
 
-      context "instance methods" do
+      let (:first_time) do
+        TimeSpan::RelativeTime.parse("Jan 1, 2010")
+      end
 
-        context "comparators" do
-
-          context "same ending time, alpha starts before beta" do
-
-            before (:each) do
-              @beta = TemporalObject::RelativeTimeSpan.new
-              @beta.starting = @alpha.starting + 10
-              @beta.ending = @alpha.ending
-            end
-
-            context "alpha should be" do
+      let (:second_time) do
+        first_time + 1000
+      end
 
 
-              it "starting before beta" do                #+1
-                @alpha.should be_starting_before(@beta)
-              end
+      context "#instance methods" do
 
+        context "category does not exist" do
 
-              it "ending with beta" do           #+4
-                @alpha.should be_ending_with(@beta)
-              end
-
-            end
-
-            context "alpha should not be" do
-
-              it "starting after beta" do
-                @alpha.should_not be_starting_after(@beta)  #-2
-              end
-
-              it "starting with beta" do           #-3
-                @alpha.should_not be_starting_with(@beta)
-              end
-
-              it "ending before beta" do      #-5
-                @alpha.should_not be_ending_before(@beta)
-              end
-
-              it "ending after beta" do      #-6
-                @alpha.should_not be_ending_after(@beta)
-              end
-
-              it "ending before beta is starting" do    #-7
-                @alpha.should_not be_ending_before_other_starting(@beta)
-              end
-
-              it "ending as beta is starting" do          #-8
-                @alpha.should_not be_ending_as_other_starting(@beta)
-              end
-
-              it "starting after beta ending" do          #-9
-                @alpha.should_not be_starting_after_other_ending(@beta)
-              end
-
-              it "starting as beta is ending" do          #-10
-                @alpha.should_not be_starting_as_other_ending(@beta)
-              end
-
-            end
+          it "creates a new entry for the data" do
+            ## put block around making assert that the tag now exists
+            lambda {
+              temporal_object.add_unitary_temporal_status("schooling", first_time, "entered" )
+            }.should change {temporal_object.status('schooling')}
 
           end
 
         end
+        
+        context "simple actions" do
+          it "removes a status from a temporal attribute" do
+            temporal_object.add_temporal_status("membership", first_time, "enrolled")
+            lambda {
+              temporal_object.remove_temporal_status("membership", first_time )
+            }.should change {temporal_object.status('membership')}
+            
+          end
+        end
 
+        ## without a 4th param, adds the status, with it,  replaces that status
+        context "when there can be many statuses of a given type"
+          it "inserts a temporal status at a given position" do
+            temporal_object.add_temporal_status("membership", first_time, "enrolled")
+            temporal_object.add_temporal_status("membership", second_time, "graduated")
+
+            temporal_object.temporal_status("membership").count.should be_greater_than(1)
+          end
+        end
+
+        context "when there can be only one like a given status" do
+
+        end
+
+
+
+          
+          
       end
 
     end

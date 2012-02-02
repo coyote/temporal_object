@@ -1,0 +1,74 @@
+Object: e.g., Tom Smith
+
+"minor", 2-15-2000; "major", 2-15-2021
+"MP", 3-7-2030; "civilian", 2-21-2033
+
+
+#  For the first field respond_to? (:to_s)  => true
+#  Second fields are TimeSpan::TimeSpan objects, just shown here in (a) DateTime format for clarity.
+
+The last field is shown as a string also for clarity; it is actually of any time of Object, in most cases some kind of Event or Location object.  Like the first field, it should "respond_to?" to_s
+
+
+@statuses = 
+
+   {"Legal" =>                                       # two types of legal statuses at the same time
+            { 'age' =>
+                [
+                  [2-15-2000, "minor"]
+                  [2-15-2021, "major"]
+                ],
+              'political' =>
+                [
+                  [5-19-2030, "member of congress"],
+                  [1-18-2032, "civilian"]
+                ]
+            },
+
+     "Gender" =>
+            { 'biological' =>
+              [
+                [2-15-2000, "male"]          # retains same structure even if it doesn't change
+              ]
+            },
+
+     "Social"  =>                                        # one kind at a time
+        { 'politico-economic' =>
+            [
+              [2-15-2000, "poor"],
+              [5-20-2020, "middle-class"],
+              [5-19-2032, "elite"]
+            ]
+        }
+   }
+
+   status =
+     { TemporalStatusGroup (name="Legal")
+
+
+   e.g.,
+
+   Status:     # for entire TemporalObject
+     { TemporalStatusGroup, TemporalStatusGroup, etc.       }
+
+   TemporalStatusGroup:
+     { name =>  TemporalStatusHistory, TemporalStatusHistory, etc. }
+
+   TemporalStatusHistory:                    .
+     { name =>
+         [ TemporalStatusItem, TemporalStatusItem, etc.]
+     }
+
+   # Basic Status Trait.  Only one per time span
+   #  For second element ([1]), respond_to? :to_s => true
+
+   TemporalStatusItem:
+       [ TemporalObject::RelativeTime, Object]
+
+
+   ['Legal']            # TemporalObject::TemporalStatusGroup
+   ['Legal']['age']     # TemporalObject::TemporalStatusList
+   ['Legal']['age'][0]  # TemporalObject::TemporalStatusItem([2-15-2000, "minor"] )
+           
+ 
+

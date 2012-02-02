@@ -6,7 +6,9 @@ require 'temporal_object'
 
 require 'bundler/setup'
 require 'rspec'
-require 'rspec/autorun'
+require 'rspec/autorun
+
+require 'time_span'
 
 
 
