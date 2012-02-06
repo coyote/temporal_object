@@ -1,89 +1,45 @@
 #require "temporal_object/version"
+ require 'time_span'
 
 module TemporalObject
 
-  require 'date'                      # to be deprecated
+  ## this will be an individual status attached to a TimeSpan::RelativeTime
+  class TemporalStatus
 
-  class TemporalStatusItem           # detail record
+    attr_accessor  :text, :subject, :see_also, :obj
 
-    def initialize( status )
-    end
-
-    def status_entry
-    end
-
-    # no replace/edit functionality, remve from TemporalStatusList, and reinsert
-
-  end
-
-  class TemporalStatusHistory     # a list of TemporalStatusEntries
-
-    def initialize( name )
+    def initialize(objekt, description, subj, see_list=nil)
+      obj      = objekt
+      text     = description
+      see      = subj                         # primary TemporalObject in question
+      see_also = see_list                     # Array of TemporalObjects
     end
 
   end
 
-  class TemporalStatusGroup        # a hash where key is category, values are
-
-     def initialize( name )
-     end
-
-
-
-  end
+  ## for checkov (coyote/tail) this object will be a primary edit object
+  #     e.g., a scene, a character, a conflict
 
   class TemporalObject
 
-    def initialize *params
-      super &params
-      @statuses = {}
-    end
+    attr_accessor :statuses     # Array of TimeSpan::TimeLine
 
-    def statuses
-      @statuses
-    end
+    ## must be able to:
+    #===============================
+    #  -- get, add, remove a timeline
+    #  -- get, add, remove a status from a timeline
+    #  -- erase all timelines, all statuses from a timeline
+    #  -- remove all timelines
+    #  -- get a list of related statuses from a status
+    #  -- get a list of all related statuses for a timline
+    #  -- get all related statuses
 
-    def status status_type
-      @statuses['status_type']
-    end
-
-    ## without the last param, will add on a status, marking as multiple simultaneous statuses
-    def add_temporal_status(name, time_point, status, replaces=nil)
-
+    def initialize
+      @statuses = []         # Array of TimeSpan::TimeLine
     end
 
   end
 
-  #write specs for this
-  class TimeSpanRelation
-
-
-    # for RrelativeTimeSpan objects a,b:
-
-    #  a is before b (gap between)
-    #  a is after b  (gap between)
-
-    # a starting as b ending (before and touching))
-    # a ending as b starting (after and touching)
-
-    #  a starting with but ending before b
-    #  a starting with but ending after b
-
-    #  a starting after but ending before b
-    #  a starting after but ending with b
-    #  a starting after but ending after b
-
-    #  a starting before but ending after b
-    #  a starting after and ending before b
-
-    # a starting before b and ending before b
-    # a starting after and ending after b
-
-    # a starting after b but ending with b
-    # a starting before but ending with b
-
-
-  end
 
 
 end
