@@ -3,16 +3,15 @@
 
 module TemporalObject
 
-  ## this will be an individual status attached to a TimeSpan::RelativeTime
-  class TemporalStatus
 
-    attr_accessor  :text, :subject, :see_also, :obj
+  ## TimeLine holds the relationship between a TemporalObject and a TimeSpan::TimeLine.
+  class TimeLine
 
-    def initialize(objekt, description, subj, see_list=nil)
-      obj      = objekt
-      text     = description
-      see      = subj                         # primary TemporalObject in question
-      see_also = see_list                     # Array of TemporalObjects
+    attr_accessor :timeline, :role_on_object
+
+    def initialize(timeline, role)
+      @timeline = timeline
+      @role_on_object = role
     end
 
   end
@@ -22,20 +21,41 @@ module TemporalObject
 
   class TemporalObject
 
-    attr_accessor :statuses     # Array of TimeSpan::TimeLine
-
-    ## must be able to:
-    #===============================
-    #  -- get, add, remove a timeline
-    #  -- get, add, remove a status from a timeline
-    #  -- erase all timelines, all statuses from a timeline
-    #  -- remove all timelines
-    #  -- get a list of related statuses from a status
-    #  -- get a list of all related statuses for a timline
-    #  -- get all related statuses
+    attr_accessor :timelines     # Array of TimeSpan::TimeLine
 
     def initialize
-      @statuses = []         # Array of TimeSpan::TimeLine
+      @timelines = []         # Array of TemporalObject::TimeLine
+    end
+
+    def remove_all_timelines
+      @timelines = []
+    end
+
+    ## wraps a TimeSpan::TimeLine object
+    def add_timeline(timeline, role)
+      tline = TemporalObject::TimeLine.new timeline, role
+      add_object_timeline(tline)
+    end
+
+    ## passes in a TemporalObject::TimeLIne
+    def add_temporal_object_timeline(timeline)
+      @timelines << timeline
+    end
+
+    def find_timeline(timeline)
+       @timelines.index(timeline)
+    end
+
+    def remove_timeline(timeline)
+      @timelines.delete(timeline)
+    end
+
+    def find_timeline_by_name(name)
+      @timelines.select{ |tl| tl.timeline.name == name }.first
+    end
+
+    def find_timeline_by_role(role)
+       @timelines.select{ |tl| tl.role_on_object == role }.first
     end
 
   end

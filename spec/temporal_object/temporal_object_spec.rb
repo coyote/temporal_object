@@ -5,64 +5,71 @@
 
   describe "TemporalObject"  do
 
-    describe "Temporal Object" do
 
+    let (:temporal_object) do
+      TemporalObject::TemporalObject.new
+    end
 
-      let (:temporal_object) do
-        TemporalObject::TemporalObject.new
+    let (:timeline) do
+      TimeSpan::TimeLine.new "test timeline"
+    end
+
+    let (:object_timeline) do
+      TemporalObject::TimeLine.new timeline, "Hero's Actions'"
+    end
+
+    context "TemporalObject TimeLine" do
+
+      it "creates a timeline" do
+        object_timeline.timeline.should_not be_empty
       end
 
-      let (:first_time) do
-        TimeSpan::RelativeTime.parse("Jan 1, 2010")
-      end
+    end
 
-      let (:second_time) do
-        first_time + 1000
-      end
-
+    context  "TemporalObject  TemporalObject" do
 
       context "#instance methods" do
 
-        context "category does not exist" do
-
-          it "creates a new entry for the data" do
-            ## put block around making assert that the tag now exists
-            lambda {
-              temporal_object.add_unitary_temporal_status("schooling", first_time, "entered" )
-            }.should change {temporal_object.status('schooling')}
-
-          end
-
-        end
-        
-        context "simple actions" do
-          it "removes a status from a temporal attribute" do
-            temporal_object.add_temporal_status("membership", first_time, "enrolled")
-            lambda {
-              temporal_object.remove_temporal_status("membership", first_time )
-            }.should change {temporal_object.status('membership')}
-            
+        context "Initial state" do
+          it "should have no timelines" do
+            temporal_object.timelines.should be_empty
           end
         end
 
-        ## without a 4th param, adds the status, with it,  replaces that status
-        context "when there can be many statuses of a given type"
-          it "inserts a temporal status at a given position" do
-            temporal_object.add_temporal_status("membership", first_time, "enrolled")
-            temporal_object.add_temporal_status("membership", second_time, "graduated")
+        context "TimeSpan::TimeLine manipulations" do
 
-            temporal_object.temporal_status("membership").count.should be_greater_than(1)
+          ## add_timeline will wrap a TimeSpan::TimeLine object in a TemporalObject::TimeLine
+          before (:each) do
+            temporal_object.add_timeline object_timeline, "test temporal_object's' timeline"
           end
+
+          it "can add a TimeLine to the TemporalObject" do
+            temporal_object.timelines.should_not be_empty, "TemporalObject::TimeLine not present."
+          end
+
+          it "can remove a given timeline from the temporal object" do
+            temporal_object.remove_timeline object_timeline
+            temporal_object.timelines.should be_empty, "TemporalObject::TimeLine remaining when it should not."
+          end
+
+          it "can find a timeline given the attaching TemporalObjects's name for it" do
+            timeline = temporal_object.find_timeline_by_temporal_object_role   "test temporal_object's' timeline"
+            timeline.should_not be_nil, "Could not find timeline based on attaching object's name for it."
+          end
+
+          it "can find a timeline based on the timeline's name" do
+            timeline = temporal_object.find_timeline_by_timelines_name "test timeline"
+            timeline.should_not be_nil, "Could not find timeline based on timeline name."
+          end
+
+          it "can remove all timelines from the TemporalObject" do
+            temporal_object.add_timeline TimsSpan::TimeLine.new "second timeline"
+            temporal_object.remove_all_timelines
+            temporal_object.timelines.should be_empty
+          end
+
         end
 
-        context "when there can be only one like a given status" do
-
-        end
-
-
-
-          
-          
       end
 
     end

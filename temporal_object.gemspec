@@ -11,9 +11,6 @@ Gem::Specification.new do |s|
   s.summary     = %q{Temporal Object Design Pattern}
   s.description = %q{Martin Fowler's Temporal Object Pattern.}
   s.license     = 'MIT'
-  s.dependency  = ['relative_time']
-
-
   s.rubyforge_project = "temporal_object"
 
   s.files         = `git ls-files`.split("\n")
@@ -23,6 +20,5 @@ Gem::Specification.new do |s|
 
   # specify any dependencies here; for example:
   s.add_development_dependency "rspec"
-  s.add_development_dependency "time_span"
   s.add_runtime_dependency "time_span"
 end
