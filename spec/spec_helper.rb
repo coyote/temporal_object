@@ -9,7 +9,4 @@ require 'bundler/setup'
 require 'rspec'
 require 'rspec/autorun'
 
-#RSpec.configure do |config|
-#
-#end
-
+require 'time_span'

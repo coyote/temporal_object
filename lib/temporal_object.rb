@@ -1,65 +1,51 @@
-#require "temporal_object/version"
+ require 'temporal_object/version'
  require 'time_span'
 
 module TemporalObject
 
-
-  ## TimeLine holds the relationship between a TemporalObject and a TimeSpan::TimeLine.
-  class TimeLine
-
-    attr_accessor :timeline, :role_on_object
-
-    def initialize(timeline, role)
-      @timeline = timeline
-      @role_on_object = role
-    end
-
-  end
-
-  ## for checkov (coyote/tail) this object will be a primary edit object
-  #     e.g., a scene, a character, a conflict
-
   class TemporalObject
 
-    attr_accessor :timelines     # Array of TimeSpan::TimeLine
+    # [Array]  of TimeSpan::TimeLine statuses for temporal attributes
+    attr_accessor :statuses
+    # [String] object human readable identifier
+    attr_accessor :name
+    # [Object]  associated Ruby Object of any kind
+    attr_accessor :reference_object   # arbitrary Ruby object associated.
 
-    def initialize
-      @timelines = []         # Array of TemporalObject::TimeLine
+
+    ## must be able to:
+    #===============================
+    #  -- add, remove a timeline
+    #  -- erase all timelines, all statuses from a timeline
+    #  -- remove all timelines
+
+
+    def initialize(nom="", reference_obj=Object.new)
+      @statuses = []         # Array of TimeSpan::TimeLine
+      @name     = ""
+      @reference_object = reference_obj
     end
 
-    def remove_all_timelines
-      @timelines = []
+    #  add a timeline to the TemporalObject
+    # @param [TimeSpan::TimeLine] timeline added to the object
+    def add_timeline(timeline)
+      raise ArgumentError, "Can only add a TimeSpan::TimeLine to a TemporalObject's statuses" unless timeline.kind_of? TimeSpan::TimeLine
+      @statuses << timeline
     end
 
-    ## wraps a TimeSpan::TimeLine object
-    def add_timeline(timeline, role)
-      tline = TemporalObject::TimeLine.new timeline, role
-      add_object_timeline(tline)
+    # remove all TimeLine s from the TemporalObject
+    def remove_timelines
+      @statuses = []
     end
 
-    ## passes in a TemporalObject::TimeLIne
-    def add_temporal_object_timeline(timeline)
-      @timelines << timeline
-    end
-
-    def find_timeline(timeline)
-       @timelines.index(timeline)
-    end
-
+    # delete the cited   timeline
+    # @param timeline [TimeSpan::TimeLine] timeline to delete
+    # @return [TimeSpan::TimeLine, nil] TimeLIne deleted if successful or nil if not
     def remove_timeline(timeline)
-      @timelines.delete(timeline)
-    end
-
-    def find_timeline_by_name(name)
-      @timelines.select{ |tl| tl.timeline.name == name }.first
-    end
-
-    def find_timeline_by_role(role)
-       @timelines.select{ |tl| tl.role_on_object == role }.first
+      raise ArgumentError, "Can only remove a TimeLine with this call."  unless timeline.kind_of? TimeSpan::TimeLine
+      @statuses.delete(timeline)
     end
 
   end
-
-
 
 end
