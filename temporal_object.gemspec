@@ -11,8 +11,6 @@ Gem::Specification.new do |s|
   s.summary     = %q{Temporal Object Design Pattern}
   s.description = %q{Martin Fowler's Temporal Object Pattern.}
   s.license     = 'MIT'
-  s.dependency  = ['relative_time']
-
 
   s.rubyforge_project = "temporal_object"
 

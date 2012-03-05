@@ -1,41 +1,49 @@
-#require "temporal_object/version"
+ require 'temporal_object/version'
  require 'time_span'
 
 module TemporalObject
 
-  ## this will be an individual status attached to a TimeSpan::RelativeTime
-  class TemporalStatus
-
-    attr_accessor  :text, :subject, :see_also, :obj
-
-    def initialize(objekt, description, subj, see_list=nil)
-      obj      = objekt
-      text     = description
-      see      = subj                         # primary TemporalObject in question
-      see_also = see_list                     # Array of TemporalObjects
-    end
-
-  end
-
-  ## for checkov (coyote/tail) this object will be a primary edit object
-  #     e.g., a scene, a character, a conflict
-
   class TemporalObject
 
-    attr_accessor :statuses     # Array of TimeSpan::TimeLine
+    # [Array]  of TimeSpan::TimeLine statuses for temporal attributes
+    attr_accessor :statuses
+    # [String] object human readable identifier
+    attr_accessor :name
+    # [Object]  associated Ruby Object of any kind
+    attr_accessor :reference_object   # arbitrary Ruby object associated.
+
 
     ## must be able to:
     #===============================
-    #  -- get, add, remove a timeline
-    #  -- get, add, remove a status from a timeline
+    #  -- add, remove a timeline
     #  -- erase all timelines, all statuses from a timeline
     #  -- remove all timelines
-    #  -- get a list of related statuses from a status
-    #  -- get a list of all related statuses for a timline
-    #  -- get all related statuses
 
-    def initialize
+
+    def initialize(nom="", reference_obj=Object.new)
       @statuses = []         # Array of TimeSpan::TimeLine
+      @name     = ""
+      @reference_object = reference_obj
+    end
+
+    #  add a timeline to the TemporalObject
+    # @param [TimeSpan::TimeLine] timeline added to the object
+    def add_timeline(timeline)
+      raise ArgumentError, "Can only add a TimeSpan::TimeLine to a TemporalObject's statuses" unless timeline.kind_of? TimeSpan::TimeLine
+      @statuses << timeline
+    end
+
+    # remove all TimeLine s from the TemporalObject
+    def remove_timelines
+      @statuses = []
+    end
+
+    # delete the cited   timeline
+    # @param timeline [TimeSpan::TimeLine] timeline to delete
+    # @return [TimeSpan::TimeLine, nil] TimeLIne deleted if successful or nil if not
+    def remove_timeline(timeline)
+      raise ArgumentError, "Can only remove a TimeLine with this call."  unless timeline.kind_of? TimeSpan::TimeLine
+      @statuses.delete(timeline)
     end
 
   end
