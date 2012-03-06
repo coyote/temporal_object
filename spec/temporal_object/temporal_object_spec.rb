@@ -10,6 +10,11 @@
       TimeSpan::TimeLine.new "test timeline"
     end
 
+    let (:timeline2) do
+      TimeSpan::TimeLine.new "second test TimeLine"
+    end
+
+
     context  "TemporalObject::TemporalObject" do
 
       context "#instance methods" do
@@ -31,14 +36,15 @@
           end
 
           it "can remove a given timeline from the temporal object" do
+            temporal_object.add_timeline timeline2
             temporal_object.remove_timeline timeline
-            temporal_object.statuses.should be_empty, "TemporalObject::TimeLine remaining when it should not."
+            temporal_object.statuses.should_not be_empty #, "TemporalObject::TimeLine does not have 1 status when it should."
           end
 
-          #it "can find a timeline based on the timeline's name" do
-          #  timeline = temporal_object.find_timeline_by_timelines_name "test timeline"
-          #  timeline.should_not be_nil, "Could not find timeline based on timeline name."
-          #end
+          it "can remove a given timeline from the temporal object" do
+            temporal_object.remove_timeline timeline
+            temporal_object.statuses.should be_empty #, "TemporalObject::TimeLine does not have 1 status when it should."
+          end
 
           it "can remove all timelines from the TemporalObject" do
             temporal_object.remove_timelines

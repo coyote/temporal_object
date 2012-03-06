@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    temporal_object (0.0.1.alpha02)
+    temporal_object (0.0.2)
       time_span
 
 GEM
@@ -16,7 +16,7 @@ GEM
     rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
-    time_span (0.0.2)
+    time_span (0.0.3)
 
 PLATFORMS
   ruby

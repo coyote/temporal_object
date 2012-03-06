@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["craig.a.cook@gmail.com"]
   s.homepage    = ""
   s.summary     = %q{Temporal Object Design Pattern}
-  s.description = %q{Martin Fowler's Temporal Object Pattern.}
+  s.description = %q{Martin Fowler\'s Temporal Object Pattern.  Use time_span gem for the times.}
   s.license     = 'MIT'
   s.rubyforge_project = "temporal_object"
   s.files         = `git ls-files`.split("\n")
