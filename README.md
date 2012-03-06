@@ -5,7 +5,8 @@ Most of the temporal aspects for Temporal Object are delegated to TimeSpan.  The
 TimeSpan statuses.
 
  see:
-* [doc] (http://rubydoc.info/gems/time_span/0.0.3/frames)
+
+* [rdoc] (http://rubydoc.info/gems/time_span/0.0.3/frames)
 
 * [github] (https://github.com/coyote/time_span)
 
