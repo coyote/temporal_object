@@ -1,9 +1,10 @@
 Temporal Object
 ===============
 
-This is a first stab at creating a RubyGem to implement Martin Fowler's "Temporal Objects" paradigm.
+Most of the temporal aspects for Temporal Object are delegated to TimeSpan.  The Temporal Object just has any number of
+TimeSpan statuses.
 
-So far there are time comparators.  TemporalObject::RelativeTime just inherits from DateTime (for now).
-
-IT IS NOT YET READY FOR PRIME TIME!  Do not use.  I will be refactoring, so the API *will* be changing.  Thanks.
-
+ see:
+ [doc] http://rubydoc.info/gems/time_span/0.0.3/frames
+ [github] https://github.com/coyote/time_span
+ [rubygems] https://rubygems.org/gems/time_span
