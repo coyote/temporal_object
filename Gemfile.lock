@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    temporal_object (0.0.2)
+    temporal_object (0.1.0)
       time_span
 
 GEM
