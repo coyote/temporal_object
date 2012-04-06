@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    temporal_object (0.1.3)
+    temporal_object (0.1.5)
       time_span
 
 GEM
@@ -27,5 +27,6 @@ PLATFORMS
 
 DEPENDENCIES
   rspec (~> 2.9.0)
+  rspec-expectations (= 2.9.0)
   rubygems-test
   temporal_object!
