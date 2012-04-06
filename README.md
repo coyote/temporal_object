@@ -16,7 +16,7 @@ TimeSpan statuses.
 
  More information on TimeSpan:
 
-* [rdoc] (http://rubydoc.info/gems/temporal_object/0.1.5/frames)
+* [rdoc] (http://rubydoc.info/gems/time_span/0.1.5/frames)
 * [github] (https://github.com/coyote/time_span)
 * [rubygems] (https://rubygems.org/gems/time_span)
 
