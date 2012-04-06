@@ -21,4 +21,6 @@ TimeSpan statuses.
 * [rubygems] (https://rubygems.org/gems/time_span)
 
 
-Note, that this implementation is quite changed from gem version 0.0.3, where TemporalObjects needed to be created, which pointed to your actual object.  Code has been simplified thereby, and is much cleaner.
+Note: this implementation is quite changed from gem version 0.0.3, where TemporalObjects needed to be created, which pointed to your actual object.  Code has been simplified thereby, and is much cleaner.
+
+Note 2: The presence (for now) of rspec-expectations-2.9.1 gem will cause 'gem test' to fail.  The gem has been written so a clean slate of gems (e.g., a new gemset) will allow the correct version to install, and then 'gem test' should pass.
