@@ -1,6 +1,10 @@
 Temporal Object
 ===============
 
+This is an implementation of Martin Fowler's [Temporal Object Pattern](http://martinfowler.com/eaaDev/TemporalObject.html).
+
+It uses abstract time (as implemented by the time_span gem).  If you would rather use standard Earth time, you might look into the [runt gem](http://runt.rubyforge.org/).
+
 This gem is implemented as a mixin, so that you can do the following:
 
 ```ruby
